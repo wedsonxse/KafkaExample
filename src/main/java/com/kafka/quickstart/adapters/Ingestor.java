@@ -13,8 +13,11 @@ public class Ingestor implements  Runnable{
     List<Listener> listeners = new ArrayList<>();
     OkHttpClient client = new OkHttpClient();
 
-    public Ingestor(String origin, Listener listener){
+    public void addDataOrigin(String origin){
         this.origins.add(origin);
+    }
+
+    public void addListener(Listener listener){
         this.listeners.add(listener);
     }
 

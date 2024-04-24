@@ -12,7 +12,10 @@ public class KafkaExample {
 
 	public static void main(String[] args) throws Exception {
 		Dotenv env = Dotenv.load();
-		Ingestor ingestor = new Ingestor(env.get("DATA_PROVIDER_API"),new Producer(env.get("BOOTSTRAP_SERVERS")));
+		Ingestor ingestor = new Ingestor();
+
+		ingestor.addDataOrigin(env.get("DATA_PROVIDER_API"));
+		ingestor.addListener(new Producer(env.get("BOOTSTRAP_SERVERS")));
 		ingestor.getThreadInstance().start();
 
 		new Consumer(env.get("KAFKA_TOPIC_NAME"),env.get("BOOTSTRAP_SERVERS")).lookupAndConsumeData();
